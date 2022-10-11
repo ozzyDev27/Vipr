@@ -12,7 +12,7 @@ run = open("program.vpr", "r")
 options = {
     "devkey":False,
     "color": True,
-    "insult":"❤️" #joke with my friends - in the input variable if you input a <3 then it will replace it with "dumb"
+    "insult":"❤️"
 }
 devkey = options["devkey"]
 color = options["color"]
@@ -35,7 +35,6 @@ def repVar(check):
 color = False
 
 out=""
-#generally unused - going to add a lot of error messages
 def error(errormsg):
     try:
         if color:
@@ -82,6 +81,7 @@ def exec_next(lines):
         for word in args:
             toText+=repVar(word)
             toText+=" "
+        toText.removesuffix(" ")
         print(toText,end="")
         out+=toText
     elif cmd == "slp":
@@ -162,7 +162,7 @@ def exec_next(lines):
             out+="> "
             notyet=input(" ")
             if notyet == whotoinsult:
-                var[vartochange]="dumb"
+                var[vartochange]="ugly"
             else:
                 var[vartochange]=notyet
         elif kwargs == "cpy":
@@ -218,7 +218,8 @@ def exec_next(lines):
                 append+=' '
             append=append.removesuffix("\n ")
             lists[lsttochange].insert(int(args[2])-1,repVar(append))
-
+        elif keyword == "pop":
+            list[int(lsttochange)+1].pop()
     
     line += 1
 totallines = run.readlines()
