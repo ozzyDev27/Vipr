@@ -79,10 +79,11 @@ def exec_next(lines):
     elif cmd == "txt":
         toText=""
         for word in args:
-            toText+=repVar(word)
+            toText+=repVar(str(word))
             toText+=" "
-        toText.removesuffix(" ")
-        print(toText,end="")
+        toText.removesuffix("\n ").removesuffix("\n ").removesuffix(" ").removesuffix("\n")
+        print(f"`{toText}` AA.{args}.AA",end="")
+        #print(toText,end='')
         out+=toText
     elif cmd == "slp":
         timeToSleep=repVar(args[0])
