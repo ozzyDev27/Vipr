@@ -33,7 +33,7 @@ def repVar(check):
     return check
         
 color = False
-
+#placeholder
 out=""
 def error(errormsg):
     try:
