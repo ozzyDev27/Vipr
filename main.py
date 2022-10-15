@@ -106,6 +106,8 @@ def exec_next(lines):
     elif cmd == "dbg (NO)":
         if args[0] == "1":
             print(var)
+        elif args[0] == "2":
+            print(lists)
     elif cmd == "var":
         kwargs=str(args[1]).replace("\n","")
         vartochange = args[0].replace("\n", "")
