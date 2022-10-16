@@ -235,7 +235,7 @@ while True:
         complete += 1
     except KeyboardInterrupt:
         break
-if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
+if devkey: cprint(f"Dev > Run Lines: {complete} < ", "magenta")
 run.close()
 writeOut.close()
 print("")
