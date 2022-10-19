@@ -34,6 +34,13 @@ def repVar(check):
     check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
     return check
         
+#remove suffix fix
+def removeEnd(toRemove, stringGet):
+	if str(stringGet).endswith(str(toRemove)):
+		lengthRemove = int(len(toRemove))*-1
+		return stringGet[:lengthRemove]
+	else:
+		return stringGet
 color = False
 
 out=""
@@ -83,7 +90,8 @@ def exec_next(lines):
         for word in args:
             toText+=repVar(str(word))
             toText+=" "
-        toText.removesuffix("\n ").removesuffix("\n ").removesuffix(" ").removesuffix("\n")
+         
+        toText = toText.removesuffix("\n ").removesuffix("\n ").removesuffix(" ").removesuffix("\n")
         print(f"`{toText}` AA.{args}.AA",end="")
         #print(toText,end='')
         out+=toText
