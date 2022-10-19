@@ -7,7 +7,7 @@ import math
 #import PyYaml
 #^^^ MAKE WORK!!! (please)
 #or make a "set" command?
-	
+
 run = open("program.vpr", "r")
 options = {
 	"devkey":False,
@@ -95,6 +95,7 @@ def exec_next(lines):
 		toText = removeEnd("\n ",toText)
 		print(toText)
 		out+=toText
+		out+="\n"
 	elif cmd == "slp":
 		timeToSleep=repVar(args[0])
 		slpp = int(timeToSleep) / 100
@@ -168,9 +169,11 @@ def exec_next(lines):
 				if lengt == len(othr):
 					print(word.replace("\n", ""))
 					out+=word.replace("\n", "")
+					out+="\n"
 				else:
 					print(word, end=" ")
 					out+=word
+					out+="\n"
 			cprint(">", "blue" if color else "white", end="")
 			out+="> "
 			notyet=input(" ")
