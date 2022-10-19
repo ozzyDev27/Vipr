@@ -28,12 +28,14 @@ labels = {"-": "-"}
 
 # Replaces all variables with their value
 def repVar(check):
+    #get every thing to be replaced
+    #if starts with ! make variable, & is list, $ is color change, etc
     check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
     check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
     return check
         
 color = False
-#placeholder
+
 out=""
 def error(errormsg):
     try:
@@ -106,8 +108,6 @@ def exec_next(lines):
     elif cmd == "dbg (NO)":
         if args[0] == "1":
             print(var)
-        elif args[0] == "2":
-            print(lists)
     elif cmd == "var":
         kwargs=str(args[1]).replace("\n","")
         vartochange = args[0].replace("\n", "")
@@ -235,7 +235,7 @@ while True:
         complete += 1
     except KeyboardInterrupt:
         break
-if devkey: cprint(f"Dev > Run Lines: {complete} < ", "magenta")
+if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
 run.close()
 writeOut.close()
 print("")
