@@ -72,6 +72,7 @@ def exec_next(lines):
 	activeloop = 0
 	comment = 0
 	userline = line + 1
+	lines[line]=lines[line].replace("\n","")
 	try:
 		code = lines[line].split(" ")  # splits all the words into a list
 	except IndexError:
@@ -92,7 +93,7 @@ def exec_next(lines):
 			toText+=" "
 		 
 		toText = removeEnd("\n ",toText)
-		#print(toText,end='')
+		print(toText)
 		out+=toText
 	elif cmd == "slp":
 		timeToSleep=repVar(args[0])
@@ -147,6 +148,8 @@ def exec_next(lines):
 				var[vartochange] = float(repVar(args[3]))%float(repVar(args[4]))
 			elif args[2] == "pwr":
 				var[vartochange] = float(repVar(args[3]))**float(repVar(args[4]))
+			elif args[2] == "abs":
+				var[vartochange] = abs(float(repVar(args[3])))
 			if str(var[vartochange]).endswith(".0"):
 				var[vartochange] = str(var[vartochange]).replace(".0", "")
 		elif kwargs == "str":
