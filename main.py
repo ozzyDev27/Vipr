@@ -1,12 +1,12 @@
 import time
-from tkinter import *
 from termcolor import *
 from random import randint
-#import PyYaml
 import re
 import math
 #import os
-from playsound import playsound
+#import PyYaml
+#^^^ MAKE WORK!!! (please)
+#or make a "set" command?
 
 run = open("program.vpr", "r")
 options = {
