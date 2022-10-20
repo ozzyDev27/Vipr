@@ -23,7 +23,6 @@ settline = 0
 complete = 0
 loop = 0
 var = {"-": "-"}	
-lists = {"-": "-"}
 labels = {"-": "-"}
 
 # Replaces all variables with their value
@@ -218,14 +217,14 @@ def exec_next(lines):
 		lsttochange=str(args[0].replace("\n",""))
 		keyword=args[1].replace("\n","")
 		if keyword == "add":
-			lists[lsttochange]=[]
+			var[lsttochange]=[]
 		elif keyword == "app":
 			append=''
 			for i in args[2:]:
 				append+=i
 				append+=' '
 			append=append=removeEnd("\n ", append)
-			lists[lsttochange].append(repVar(append))
+			var[lsttochange].append(repVar(append))
 		elif keyword == "ins":
 			#lst name ins 1 muahahahhah
 			append=''
@@ -233,9 +232,7 @@ def exec_next(lines):
 				append+=i
 				append+=' '
 			append=removeEnd("\n ", append)
-			lists[lsttochange].insert(int(args[2])-1,repVar(append))
-		elif keyword == "pop":
-			list[int(lsttochange)+1].pop()
+			var[lsttochange].insert(int(args[2])-1,repVar(append))
 	
 	line += 1
 totallines = run.readlines()
