@@ -6,7 +6,7 @@ import math
 #import os
 #import PyYaml
 #^^^ MAKE WORK!!! (please)
-#or make a "set" command?
+#or make a "set" (settings) command?
 
 run = open("program.vpr", "r")
 options = {
