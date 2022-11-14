@@ -1,5 +1,5 @@
 import time
-from termcolor import *
+from termcolor import cprint
 from random import randint
 import re
 import math
