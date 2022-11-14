@@ -72,16 +72,13 @@ def exec_next(lines):
 	comment = 0
 	userline = line + 1
 	lines[line]=lines[line].replace("\n","")
-	try:
-		code = lines[line].split(" ")  # splits all the words into a list
-	except IndexError:
-		pass
+	try:code = lines[line].split(" ")
+	except IndexError:pass
 	rand = 0
-	cmd = code[0]  # cmd is the first word
+	cmd = code[0]
 	args= code[1:]
 	othr = args[2:]
 	lengt = 0
-  
 	if str(cmd).startswith("#"):
 		pass
 
@@ -112,7 +109,7 @@ def exec_next(lines):
 			remember = line
 			line = labels[str(args[1]).replace("\n", "")]
 	elif cmd == "end":
-		raise KeyboardInterrupt
+		raise IndexError
 	elif cmd == "dbg (NO)":
 		if args[0] == "1":
 			print(var)
@@ -235,6 +232,7 @@ def exec_next(lines):
 			var[lsttochange].insert(int(args[2])-1,repVar(append))
 	
 	line += 1
+	#if line>len(totallines): raise KeyboardInterrupt
 totallines = run.readlines()
 complete = 0
 while True:
@@ -243,7 +241,7 @@ while True:
 	try:
 		exec_next(totallines)
 		complete += 1
-	except KeyboardInterrupt:
+	except IndexError:
 		break
 if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
 run.close()
