@@ -7,7 +7,6 @@ import math
 #import PyYaml
 #^^^ MAKE WORK!!! (please)
 #or make a "set" (settings) command?
-
 run = open("program.vpr", "r")
 options = {
 	"devkey":False,
@@ -50,11 +49,8 @@ def error(errormsg):
 		else:
 			print(f"\nERROR: {errormsg} on line {userline}")
 	except:print(f"\nERROR: {errormsg} on line {userline}")
-
-	
 def jummp(rurn):
 	line = int(rurn) - 2
-
 def exec_next(lines):
 	global jummp
 	global line
@@ -117,38 +113,22 @@ def exec_next(lines):
 		kwargs=str(args[1]).replace("\n","")
 		vartochange = args[0].replace("\n", "")
 		if kwargs == "num":
-			if args[2] == "set":
-				var[vartochange] = float(repVar(args[3]))
-			elif args[2] == "add":
-				var[vartochange] = float(repVar(args[3]))+float(repVar(args[4]))
-			elif args[2] == "sub":
-				var[vartochange] = float(repVar(args[3]))-float(repVar(args[4]))
-			elif args[2] == "mlt":
-				var[vartochange] = float(repVar(args[3]))*float(repVar(args[4]))
-			elif args[2] == "div":
-				var[vartochange] = float(repVar(args[3]))/float(repVar(args[4]))
-			elif args[2] == "rng":
-				var[vartochange] = randint(int(round(repVar(args[3]))),int(round(repVar(args[4]))))
-			elif args[2] == "rnd":
-				var[vartochange] = round(float(repVar(args[3])))
-			elif args[2] == "sin":
-				var[vartochange] = math.sin(float(repVar(args[3])))
-			elif args[2] == "cos":
-				var[vartochange] = math.cos(float(repVar(args[3])))
-			elif args[2] == "tan":
-				var[vartochange] = math.tan(float(repVar(args[3])))
-			elif args[2] == "flr":
-				var[vartochange] = math.floor(float(repVar(args[3])))
-			elif args[2] == "cil":
-				var[vartochange] = math.ceil(float(repVar(args[3])))
-			elif args[2] == "mod":
-				var[vartochange] = float(repVar(args[3]))%float(repVar(args[4]))
-			elif args[2] == "pwr":
-				var[vartochange] = float(repVar(args[3]))**float(repVar(args[4]))
-			elif args[2] == "abs":
-				var[vartochange] = abs(float(repVar(args[3])))
-			if str(var[vartochange]).endswith(".0"):
-				var[vartochange] = str(var[vartochange]).replace(".0", "")
+			if args[2] == "set":var[vartochange] = float(repVar(args[3]))
+			elif args[2] == "add":var[vartochange] = float(repVar(args[3]))+float(repVar(args[4]))
+			elif args[2] == "sub":var[vartochange] = float(repVar(args[3]))-float(repVar(args[4]))
+			elif args[2] == "mlt":var[vartochange] = float(repVar(args[3]))*float(repVar(args[4]))
+			elif args[2] == "div":var[vartochange] = float(repVar(args[3]))/float(repVar(args[4]))
+			elif args[2] == "rng":var[vartochange] = randint(int(round(repVar(args[3]))),int(round(repVar(args[4]))))
+			elif args[2] == "rnd":var[vartochange] = round(float(repVar(args[3])))
+			elif args[2] == "sin":var[vartochange] = math.sin(float(repVar(args[3])))
+			elif args[2] == "cos":var[vartochange] = math.cos(float(repVar(args[3])))
+			elif args[2] == "tan":var[vartochange] = math.tan(float(repVar(args[3])))
+			elif args[2] == "flr":var[vartochange] = math.floor(float(repVar(args[3])))
+			elif args[2] == "cil":var[vartochange] = math.ceil(float(repVar(args[3])))
+			elif args[2] == "mod":var[vartochange] = float(repVar(args[3]))%float(repVar(args[4]))
+			elif args[2] == "pwr":var[vartochange] = float(repVar(args[3]))**float(repVar(args[4]))
+			elif args[2] == "abs":var[vartochange] = abs(float(repVar(args[3])))
+			if str(var[vartochange]).endswith(".0"):var[vartochange] = str(var[vartochange]).replace(".0", "")
 		elif kwargs == "str":
 			if args[2] == "set":
 				toSet = ""
