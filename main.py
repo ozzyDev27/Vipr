@@ -3,10 +3,9 @@ from termcolor import cprint
 from random import randint
 import re
 import math
-#import os
+import os
 #import PyYaml
 #^^^ MAKE WORK!!! (please)
-#or make a "set" (settings) command?
 run = open("program.vpr", "r")
 options = {
 	"devkey":False,
