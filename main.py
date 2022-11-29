@@ -74,8 +74,7 @@ def exec_next(lines):
 	args= code[1:]
 	othr = args[2:]
 	lengt = 0
-	if str(cmd).startswith("#"):
-		pass
+	if str(cmd).startswith("#"):pass
 
 	elif cmd == "txt":
 		toText=""
@@ -95,19 +94,16 @@ def exec_next(lines):
 	elif cmd == "jmp":
 		remember = line
 		line = int(repVar(args[0])) - 2
-	elif cmd == "rtn":
-		line = remember
+	elif cmd == "rtn":line = remember
 	elif cmd == "lbl":
-		if args[0] == "set":
-			labels[str(args[1]).replace("\n", "")] = line
+		if args[0] == "set":labels[str(args[1]).replace("\n", "")] = line
 		elif args[0] == "jmp":
 			remember = line
 			line = labels[str(args[1]).replace("\n", "")]
 	elif cmd == "end":
 		raise IndexError
 	elif cmd == "dbg (NO)":
-		if args[0] == "1":
-			print(var)
+		if args[0] == "1":print(var)
 	elif cmd == "var":
 		kwargs=str(args[1]).replace("\n","")
 		vartochange = args[0].replace("\n", "")
