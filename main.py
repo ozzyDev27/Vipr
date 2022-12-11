@@ -148,7 +148,7 @@ def exec_next(lines):
 			cprint(">", "blue" if color else "white", end="")
 			out+="> "
 			notyet=input(" ")
-			if notyet == whotoinsult:var[vartochange]="ugly"
+			if notyet == whotoinsult:var[vartochange]="dumb"
 			else:var[vartochange]=notyet
 		elif kwargs == "cpy":var[vartochange]=var[str(args[2]).replace("\n","")]
 		elif kwargs == "bnk":var[vartochange]=""
