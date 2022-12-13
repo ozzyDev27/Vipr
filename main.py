@@ -127,13 +127,10 @@ def exec_next(lines):
 		elif kwargs == "str":
 			if args[2] == "set":
 				toSet = ""
-				for word in args[3:]:
-					toSet += repVar(word).replace("\n","")
-					toSet += " "
+				for word in args[3:]:toSet += repVar(word).replace("\n","")+" "
 				toSet = removeEnd(" ", toSet)
 				var[vartochange] = toSet
-			elif args[2] == "len":
-				var[vartochange]=len(str(repVar(args[3])))
+			elif args[2] == "len":var[vartochange]=len(str(repVar(args[3])))
 		elif kwargs == "inp":
 			for word in othr:
 				lengt += 1
