@@ -11,6 +11,7 @@ import customtkinter
 #ORR make a "settings tab" on the tkinter window
 run = open("program.vpr", "r")
 app=customtkinter.CTk()
+app.geometry("750x450")
 options = {
 	"devkey":False,
 	"color": True,
@@ -27,12 +28,16 @@ loop = 0
 var = {"-": "-"}	
 labels = {"-": "-"}
 
+inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
+inputTextField.pack(side=tkinter.LEFT,expand=True,fill=tkinter.BOTH)
+inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
+
 # Replaces all variables with their value
 def repVar(check):
 	#get every thing to be replaced
 	#if starts with ! make variable, & is list, $ is color change, etc
 	check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
-	check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
+	#check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
 	return check
 		
 #remove suffix fix
@@ -152,8 +157,7 @@ def exec_next(lines):
 			if notyet == whotoinsult:var[vartochange]="dumb"
 			else:var[vartochange]=notyet
 		elif kwargs == "cpy":var[vartochange]=var[str(args[2]).replace("\n","")]
-		elif kwargs == "bnk":var[vartochange]=""
-		else:error("unknown variable type")
+		elif kwargs == "bnk":var[vartochange]=None
 	elif cmd == "try":
 		if args[1] == "eql":
 			if repVar(str(args[2])) == repVar(str(args[3])):
@@ -178,7 +182,6 @@ def exec_next(lines):
 			out+="\n"
 	elif cmd == "lst":
 		# remove stuff
-		# insertion of stuff
 		# get length
 		# check if inside
 		# replace stuff
