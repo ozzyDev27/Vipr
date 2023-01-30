@@ -4,9 +4,13 @@ from random import randint
 import re
 import math
 import os
+import tkinter
+import customtkinter
 #import PyYaml
 #^^^ MAKE WORK!!! (please)
+#ORR make a "settings tab" on the tkinter window
 run = open("program.vpr", "r")
+app=customtkinter.CTk()
 options = {
 	"devkey":False,
 	"color": True,
@@ -199,17 +203,19 @@ def exec_next(lines):
 			var[lsttochange].insert(int(args[2])-1,repVar(append))
 	
 	line += 1
-	#if line>len(totallines): raise KeyboardInterrupt
 totallines = run.readlines()
 complete = 0
-while True:
+def Loop():
+	global complete
 	writeOut=open("output.txt", "w")
 	writeOut.write(out)
 	try:
 		exec_next(totallines)
 		complete += 1
-	except IndexError:
-		break
+		app.after(10,Loop)
+	except IndexError:pass
+app.after(1,Loop)
+app.mainloop()
 if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
 run.close()
 writeOut.close()
