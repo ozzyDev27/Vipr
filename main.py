@@ -30,14 +30,15 @@ labels = {"-": "-"}
 
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 inputTextField.pack(side=tkinter.LEFT,expand=True,fill=tkinter.BOTH)
-inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
+inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
+
+outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
+outputTextField.pack(side=tkinter.RIGHT,expand=True,fill=tkinter.BOTH)
+outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 
 # Replaces all variables with their value
 def repVar(check):
-	#get every thing to be replaced
-	#if starts with ! make variable, & is list, $ is color change, etc
 	check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
-	#check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
 	return check
 		
 #remove suffix fix
@@ -210,17 +211,17 @@ totallines = run.readlines()
 complete = 0
 def Loop():
 	global complete
+	inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
 	writeOut=open("output.txt", "w")
 	writeOut.write(out)
 	try:
 		exec_next(totallines)
 		complete += 1
 		app.after(10,Loop)
-	except IndexError:pass
+	except IndexError:writeOut.close()
 app.after(1,Loop)
 app.mainloop()
 if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
 run.close()
-writeOut.close()
 print("")
 out+="\n"
