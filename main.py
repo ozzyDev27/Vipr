@@ -216,11 +216,14 @@ def Loop():
 	outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 	addToProgram=open("program.vpr","w")
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
-	print(inputTextField.get(1.0,"end-1c"))
+	#print(inputTextField.get(1.0,"end-1c"))
 	addToProgram.close()
 	writeOut=open("output.txt", "w")
 	writeOut.write(out)
 	writeOut.close()
+	if outputTextField.get(1.0,"end-1c")!=out:
+		outputTextField.delete(1.0, "end-1c")
+		outputTextField.insert("end-1c", out)
 	try:
 		exec_next(totallines)
 		complete += 1
