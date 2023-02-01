@@ -212,6 +212,7 @@ complete = 0
 def Loop():
 	global complete
 	inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
+	outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 	writeOut=open("output.txt", "w")
 	writeOut.write(out)
 	try:
