@@ -31,6 +31,9 @@ labels = {"-": "-"}
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 inputTextField.pack(side=tkinter.LEFT,expand=True,fill=tkinter.BOTH)
 inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
+getProgram=open("program.vpr", "r")
+
+inputTextField.insert("end-1c", ''.join(getProgram.readlines()))
 
 outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT,expand=True,fill=tkinter.BOTH)
@@ -73,6 +76,7 @@ def exec_next(lines):
 	global remember
 	global whotoinsult
 	global out
+	global nextRun
 	activeloop = 0
 	comment = 0
 	userline = line + 1
@@ -98,8 +102,7 @@ def exec_next(lines):
 		out+="\n"
 	elif cmd == "slp":
 		timeToSleep=repVar(args[0])
-		slpp = int(timeToSleep) / 100
-		time.sleep(slpp)
+		nextRun=int(timeToSleep)
 		rid += int(timeToSleep)
 	elif cmd == "jmp":
 		remember = line
@@ -211,7 +214,8 @@ totallines = run.readlines()
 complete = 0
 def Loop():
 	global complete
-	global end
+	global nextRun
+	global setTime
 	inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
 	outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 	addToProgram=open("program.vpr","w")
@@ -225,10 +229,19 @@ def Loop():
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
 	try:
-		exec_next(totallines)
-		complete += 1
-	except IndexError:pass
-	app.after(10,Loop)
+		if setTime>=nextRun:
+			exec_next(totallines)
+			complete += 1
+			nextRun=0
+			setTime=0
+		setTime+=1
+	except IndexError:
+		setTime=0
+		nextRun=0
+	app.after(1000,Loop)
+	#time.sleep(.01)
+nextRun=0
+setTime=0
 app.after(1,Loop)
 app.mainloop()
 if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
