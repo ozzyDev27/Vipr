@@ -211,15 +211,21 @@ totallines = run.readlines()
 complete = 0
 def Loop():
 	global complete
+	global end
 	inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
 	outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
+	addToProgram=open("program.vpr","w")
+	addToProgram.write(inputTextField.get(1.0,"end-1c"))
+	print(inputTextField.get(1.0,"end-1c"))
+	addToProgram.close()
 	writeOut=open("output.txt", "w")
 	writeOut.write(out)
+	writeOut.close()
 	try:
 		exec_next(totallines)
 		complete += 1
-		app.after(10,Loop)
-	except IndexError:writeOut.close()
+	except IndexError:pass
+	app.after(10,Loop)
 app.after(1,Loop)
 app.mainloop()
 if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
