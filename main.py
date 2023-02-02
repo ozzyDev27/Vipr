@@ -27,11 +27,7 @@ complete = 0
 loop = 0
 var = {"-": "-"}	
 labels = {"-": "-"}
-def runButtonFunction():
-	global running,nextRun,setTime
-	running=not running
-	nextRun=0
-	setTime=0
+
 
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 inputTextField.pack(side=tkinter.LEFT,expand=True,fill=tkinter.BOTH)
@@ -42,7 +38,14 @@ inputTextField.insert("end-1c", ''.join(getProgram.readlines()))
 outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT,expand=True,fill=tkinter.BOTH)
 outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
-
+def runButtonFunction():
+	global running,nextRun,setTime
+	running=not running
+	if running: 
+		out=''
+		outputTextField.delete(1.0, "end-1c")
+	nextRun=0
+	setTime=0
 runButton=customtkinter.CTkButton(master=app,command=runButtonFunction)
 runButton.place(anchor=tkinter.N,relx=0.5,rely=0)
 # Replaces all variables with their value
@@ -252,6 +255,8 @@ def Loop():
 		except IndexError:
 			setTime=0
 			nextRun=0
+	else:
+		complete=0
 	app.after(10,Loop)
 	#time.sleep(.01)
 running=False
