@@ -27,18 +27,24 @@ complete = 0
 loop = 0
 var = {"-": "-"}	
 labels = {"-": "-"}
+def runButtonFunction():
+	global running,nextRun,setTime
+	running=not running
+	nextRun=0
+	setTime=0
 
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 inputTextField.pack(side=tkinter.LEFT,expand=True,fill=tkinter.BOTH)
 inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
 getProgram=open("program.vpr", "r")
-
 inputTextField.insert("end-1c", ''.join(getProgram.readlines()))
 
 outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT,expand=True,fill=tkinter.BOTH)
 outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 
+runButton=customtkinter.CTkButton(master=app,command=runButtonFunction)
+runButton.place(anchor=tkinter.N,relx=0.5,rely=0)
 # Replaces all variables with their value
 def repVar(check):
 	check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
@@ -103,6 +109,7 @@ def exec_next(lines):
 	elif cmd == "slp":
 		timeToSleep=repVar(args[0])
 		nextRun=int(timeToSleep)
+		#print(nextRun)
 		rid += int(timeToSleep)
 	elif cmd == "jmp":
 		remember = line
@@ -212,14 +219,18 @@ def exec_next(lines):
 	line += 1
 totallines = run.readlines()
 complete = 0
+padding=150
+
 def Loop():
 	global complete
 	global nextRun
 	global setTime
-	inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
-	outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
+	global running
+	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
+	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 	addToProgram=open("program.vpr","w")
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
+	runButton.configure(text=str(running))
 	#print(inputTextField.get(1.0,"end-1c"))
 	addToProgram.close()
 	writeOut=open("output.txt", "w")
@@ -228,18 +239,22 @@ def Loop():
 	if outputTextField.get(1.0,"end-1c")!=out:
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
-	try:
-		if setTime>=nextRun:
-			exec_next(totallines)
-			complete += 1
-			nextRun=0
+	#print(f"{nextRun}!{setTime}")
+	if running:
+		try:
+			if setTime>=nextRun:
+				nextRun=0
+				setTime=0
+				exec_next(totallines)
+				complete += 1
+			else:
+				setTime+=1
+		except IndexError:
 			setTime=0
-		setTime+=1
-	except IndexError:
-		setTime=0
-		nextRun=0
-	app.after(1000,Loop)
+			nextRun=0
+	app.after(10,Loop)
 	#time.sleep(.01)
+running=False
 nextRun=0
 setTime=0
 app.after(1,Loop)
