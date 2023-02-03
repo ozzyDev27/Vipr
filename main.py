@@ -94,9 +94,7 @@ def exec_next(lines):
 	args= code[1:]
 	othr = args[2:]
 	lengt = 0
-	if str(cmd).startswith("#"):pass
-
-	elif cmd == "txt":
+	if cmd == "txt":
 		toText=""
 		for word in args:
 			toText+=repVar(str(word))
