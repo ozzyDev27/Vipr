@@ -41,11 +41,15 @@ outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT)
 outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.E,relx=1,rely=0.5)
 
-timer=tkinter.Label(text="0:00:00+00",fg="#ffffff",bg="#242424")
+timer=tkinter.Label(text="0:00:00.00",fg="#ffffff",bg="#242424")
 timer.place(anchor=tkinter.N,relx=.5,rely=.1+(toolbarsize/app.winfo_height()))
 
-#toolbar=tkinter.Frame(app,bg="#242424",height=toolbarsize)
-#toolbar.pack(side=tkinter.TOP,fill=tkinter.X)
+toolbar=tkinter.Frame(app,bg="#242424",height=toolbarsize)
+toolbar.pack(side=tkinter.TOP,fill=tkinter.X)
+
+fileButton=tkinter.Button(toolbar,text="File")
+fileButton.pack(side=tkinter.LEFT)
+
 def runButtonFunction():
 	global running,nextRun,setTime,reset
 	running=not running
