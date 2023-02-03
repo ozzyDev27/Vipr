@@ -209,7 +209,6 @@ def exec_next(lines):
 				append+=' '
 			append=removeEnd("\n ", append)
 			var[lsttochange].insert(int(args[2])-1,repVar(append))
-	
 	line += 1
 totallines = run.readlines()
 complete = 0
