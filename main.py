@@ -250,7 +250,6 @@ def Loop():
 	else:
 		complete=0
 	app.after(10,Loop)
-	#time.sleep(.01)
 running=False
 nextRun=0
 setTime=0
