@@ -42,7 +42,7 @@ outputTextField.pack(side=tkinter.RIGHT)
 outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.E,relx=1,rely=0.5)
 
 timer=tkinter.Label(text="0:00:00+00",fg="#ffffff",bg="#242424")
-timer.place(anchor=tkinter.N,relx=.5,rely=.1)
+timer.place(anchor=tkinter.N,relx=.5,rely=.1+(toolbarsize/app.winfo_height()))
 
 #toolbar=tkinter.Frame(app,bg="#242424",height=toolbarsize)
 #toolbar.pack(side=tkinter.TOP,fill=tkinter.X)
@@ -53,7 +53,7 @@ def runButtonFunction():
 	nextRun=0
 	setTime=0
 runButton=customtkinter.CTkButton(master=app,command=runButtonFunction)
-runButton.place(anchor=tkinter.N,relx=0.5,rely=0)
+runButton.place(anchor=tkinter.N,relx=0.5,rely=(toolbarsize/app.winfo_height()))
 # Replaces all variables with their value
 def repVar(check):
 	check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
