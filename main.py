@@ -44,13 +44,26 @@ outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_hei
 timer=tkinter.Label(text="0:00:00.00",fg="#ffffff",bg="#242424")
 timer.place(anchor=tkinter.N,relx=.5,rely=.1+(toolbarsize/app.winfo_height()))
 
-def fileButtonFunction():
+def importButtonFunction():
 	global openFile,openAFile
 	openFile=tkinter.filedialog.askopenfilename()
 	openAFile=True
-importButton=tkinter.Button(app,text="Import",width=10,height=1,compound="c",bg="#303030",fg="#ffffff",activebackground="#505050",activeforeground="#ffffff",command=fileButtonFunction)
+importButton=tkinter.Button(app,text="Import",width=10,height=1,compound="c",bg="#303030",fg="#ffffff",activebackground="#505050",activeforeground="#ffffff",command=importButtonFunction)
 importButton.pack(side=tkinter.LEFT)
 importButton.place(anchor=tkinter.NW)
+
+
+
+def exportButtonFunction():
+	f = tkinter.filedialog.asksaveasfile(mode='w', initialfile = 'program.vpr',defaultextension=".vpr",filetypes=[("All Files","*.*"),("Vipr Files","*.vpr")])
+	if f is None: 
+		return
+	f.write(inputTextField.get(1.0,"end-1c"))
+	f.close()
+	
+exportButton=tkinter.Button(app,text="Export",width=10,height=1,compound="c",bg="#303030",fg="#ffffff",activebackground="#505050",activeforeground="#ffffff",command=exportButtonFunction)
+exportButton.pack(side=tkinter.LEFT)
+exportButton.place(anchor=tkinter.NW,x=80)
 
 def runButtonFunction():
 	global running,nextRun,setTime,reset
