@@ -14,14 +14,6 @@ app=customtkinter.CTk()
 app.geometry("750x450")
 app.minsize(375,225)
 app.title("Vipr")
-options = {
-	"devkey":False,
-	"color": True,
-	"insult":"❤️"
-}
-devkey = options["devkey"]
-color = options["color"]
-whotoinsult = options["insult"]
 line = 0
 rid = float(0)
 settline = 0
@@ -82,18 +74,14 @@ def removeEnd(toRemove, stringGet):
 		return stringGet[:lengthRemove]
 	else:
 		return stringGet
-color = False
 
 out=""
 def error(errormsg):
 	try:
-		if color:
-			cprint(f"\nERROR: {errormsg} on line {userline}", "yellow")
-		else:
-			print(f"\nERROR: {errormsg} on line {userline}")
+		print(f"\nERROR: {errormsg} on line {userline}")
 	except:print(f"\nERROR: {errormsg} on line {userline}")
 def exec_next(lines):
-	global line,code,complete,userline,activeloop,comment,rid,remember,whotoinsult,out,nextRun
+	global line,code,complete,userline,activeloop,comment,rid,remember,out,nextRun
 	activeloop = 0
 	comment = 0
 	userline = line + 1
@@ -169,11 +157,10 @@ def exec_next(lines):
 					print(word, end=" ")
 					out+=word
 					out+="\n"
-			cprint(">", "blue" if color else "white", end="")
+			print(">", end="")
 			out+="> "
 			notyet=input(" ")
-			if notyet == whotoinsult:var[vartochange]="dumb"
-			else:var[vartochange]=notyet
+			var[vartochange]=notyet
 		elif kwargs == "cpy":var[vartochange]=var[str(args[2]).replace("\n","")]
 		elif kwargs == "bnk":var[vartochange]=None
 	elif cmd == "try":
@@ -228,17 +215,7 @@ complete = 0
 padding=150
 
 def Loop():
-	global complete
-	global nextRun
-	global setTime
-	global running
-	global reset
-	global line
-	global out
-	global startTime
-	global toolbarsize
-	global openFile
-	global openAFile
+	global complete,nextRun,setTime,running,reset,line,out,startTime,toolbarsize,openFile,openAFile
 	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SW,relx=0,rely=1)
 	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SE,relx=1,rely=1)
 	addToProgram=open("program.vpr","w")
@@ -286,7 +263,6 @@ setTime=0
 reset=True
 app.after(1,Loop)
 app.mainloop()
-if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
 run.close()
 print("")
 out+="\n"
