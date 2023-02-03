@@ -13,6 +13,7 @@ import datetime
 run = open("program.vpr", "r")
 app=customtkinter.CTk()
 app.geometry("750x450")
+app.minsize(375,225)
 options = {
 	"devkey":False,
 	"color": True,
