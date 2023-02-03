@@ -1,3 +1,13 @@
+# Getting Started
+## Code Window
+The code window is the text area on the left of the screen.  
+This is where you enter your code, and the code gets run!
+## Console
+The console window is the text area on the right of the screen.  
+This is where all the code gets run, and you see the output!
+## Run Button
+When you press this, the code you have typed gets run!  
+It also allows you to stop the code, when it is running.
 # Commands
 ## Text and Printing
 Using the command `txt` allows you to print anything after it, for example,

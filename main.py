@@ -70,7 +70,6 @@ def error(errormsg):
 def exec_next(lines):
 	global line
 	global code
-	global loop
 	global complete
 	global userline
 	global activeloop
@@ -226,7 +225,6 @@ def Loop():
 	addToProgram=open("program.vpr","w")
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
 	runButton.configure(text=str(running))
-	#print(inputTextField.get(1.0,"end-1c"))
 	if outputTextField.get(1.0,"end-1c")!=out:
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
