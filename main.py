@@ -6,6 +6,7 @@ import math
 import os
 import tkinter
 import customtkinter
+import datetime
 #import PyYaml
 #^^^ MAKE WORK!!! (please)
 #ORR make a "settings tab" on the tkinter window
@@ -27,7 +28,7 @@ complete = 0
 var = {"-": "-"}	
 labels = {"-": "-"}
 
-
+# ----------------------- Tkinter Widget Initialization ---------------------- #
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 inputTextField.pack(side=tkinter.LEFT,expand=True,fill=tkinter.BOTH)
 inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
@@ -37,6 +38,10 @@ inputTextField.insert("end-1c", ''.join(getProgram.readlines()))
 outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT,expand=True,fill=tkinter.BOTH)
 outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
+
+timer=tkinter.Label(text="0:00:00+00",fg="#ffffff",bg="#242424")
+timer.place(anchor=tkinter.N,relx=.5,rely=.1)
+
 def runButtonFunction():
 	global running,nextRun,setTime,reset
 	running=not running
@@ -220,6 +225,7 @@ def Loop():
 	global reset
 	global line
 	global out
+	global startTime
 	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
 	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 	addToProgram=open("program.vpr","w")
@@ -234,9 +240,11 @@ def Loop():
 		line = 0
 		nextRun=0
 		setTime=0
-		complete=0
+		complete=0		
+		startTime=time.time()
 		reset=False
-	if running:
+	if running:	
+		timer.configure(text=f"{datetime.timedelta(seconds=math.floor(time.time()-startTime))}.{round(((time.time()-startTime)%1)*100)}")
 		try:
 			if setTime>=nextRun:
 				nextRun=0
@@ -253,6 +261,7 @@ def Loop():
 	app.after(10,Loop)
 running=False
 nextRun=0
+startTime=time.time()
 setTime=0
 reset=True
 app.after(1,Loop)
