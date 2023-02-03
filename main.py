@@ -38,6 +38,7 @@ timer.place(anchor=tkinter.N,relx=.5,rely=.1+(toolbarsize/app.winfo_height()))
 def importButtonFunction():
 	global openFile,openAFile
 	openFile=tkinter.filedialog.askopenfilename()
+	if openFile in [None,""]:return
 	openAFile=True
 importButton=customtkinter.CTkButton(master=app,text="Import",command=importButtonFunction)
 importButton.pack(side=tkinter.LEFT)
@@ -221,7 +222,6 @@ def Loop():
 	addToProgram=open("program.vpr","w")
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
 	runButton.configure(text=str("Running" if running else "Paused"))
-	currentTime=time.time()-startTime
 	if outputTextField.get(1.0,"end-1c")!=out:
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
@@ -236,7 +236,9 @@ def Loop():
 		reset=False
 	if openAFile:
 		inputTextField.delete(1.0, "end-1c")
-		inputTextField.insert("end-1c", open(openFile,"r").read())
+		with open(openFile,"r") as f:
+			fileText=f.read()
+		inputTextField.insert("end-1c", fileText)
 		openAFile=False
 	if running:	
 		timer.configure(text=f"{datetime.timedelta(seconds=math.floor(time.time()-startTime))}.{round(((time.time()-startTime)%1)*100)}")
