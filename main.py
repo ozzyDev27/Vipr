@@ -38,12 +38,9 @@ outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT,expand=True,fill=tkinter.BOTH)
 outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 def runButtonFunction():
-	global running,nextRun,setTime
+	global running,nextRun,setTime,reset
 	running=not running
-	if running: 
-		out=''
-		outputTextField.delete(1.0, "end-1c")
-		line = 0
+	if running:reset=True
 	nextRun=0
 	setTime=0
 runButton=customtkinter.CTkButton(master=app,command=runButtonFunction)
@@ -221,6 +218,9 @@ def Loop():
 	global nextRun
 	global setTime
 	global running
+	global reset
+	global line
+	global out
 	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
 	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 	addToProgram=open("program.vpr","w")
@@ -230,7 +230,14 @@ def Loop():
 	if outputTextField.get(1.0,"end-1c")!=out:
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
-	#print(f"{nextRun}!{setTime}")
+	if reset:
+		out=''
+		outputTextField.delete(1.0, "end-1c")
+		line = 0
+		nextRun=0
+		setTime=0
+		complete=0
+		reset=False
 	if running:
 		try:
 			if setTime>=nextRun:
@@ -249,6 +256,7 @@ def Loop():
 running=False
 nextRun=0
 setTime=0
+reset=True
 app.after(1,Loop)
 app.mainloop()
 if devkey: cprint(f"Dev > Run Lines: {complete}", "magenta")
