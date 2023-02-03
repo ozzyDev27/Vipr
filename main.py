@@ -105,7 +105,7 @@ def exec_next(lines):
 		out+="\n"
 	elif cmd == "slp":
 		timeToSleep=repVar(args[0])
-		nextRun=int(timeToSleep)
+		nextRun=nextFrame(timeToSleep)
 		rid += int(timeToSleep)
 	elif cmd == "jmp":
 		remember = line
@@ -214,7 +214,8 @@ def exec_next(lines):
 totallines = run.readlines()
 complete = 0
 padding=150
-
+def nextFrame(next:int):
+	return (int(round(time.time()*100))+int(next))/100
 def Loop():
 	global complete,nextRun,setTime,running,reset,line,out,startTime,toolbarsize,openFile,openAFile
 	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SW,relx=0,rely=1)
@@ -243,9 +244,8 @@ def Loop():
 	if running:	
 		timer.configure(text=f"{datetime.timedelta(seconds=math.floor(time.time()-startTime))}.{round(((time.time()-startTime)%1)*100)}")
 		try:
-			if setTime>=nextRun:
-				nextRun=0
-				setTime=0
+			if time.time()>=nextRun:
+				nextRun=nextFrame(1)
 				exec_next(totallines)
 				complete += 1
 			else:
