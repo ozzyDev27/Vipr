@@ -181,7 +181,6 @@ def exec_next(lines):
 	elif cmd == "snd (WIP)":
 		#snd 4 100
 		#plays note 4 for 1 second
-		#playsound('static\Among Us Drip Theme Song Original (Among Us Trap Remix _ Amogus Meme Music).mp3')
 		pass
 	elif cmd == "new":
 		for i in range(0, int(args[0])):
