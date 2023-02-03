@@ -24,7 +24,6 @@ line = 0
 rid = float(0)
 settline = 0
 complete = 0
-loop = 0
 var = {"-": "-"}	
 labels = {"-": "-"}
 
@@ -44,6 +43,7 @@ def runButtonFunction():
 	if running: 
 		out=''
 		outputTextField.delete(1.0, "end-1c")
+		line = 0
 	nextRun=0
 	setTime=0
 runButton=customtkinter.CTkButton(master=app,command=runButtonFunction)
@@ -227,10 +227,6 @@ def Loop():
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
 	runButton.configure(text=str(running))
 	#print(inputTextField.get(1.0,"end-1c"))
-	addToProgram.close()
-	writeOut=open("output.txt", "w")
-	writeOut.write(out)
-	writeOut.close()
 	if outputTextField.get(1.0,"end-1c")!=out:
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
