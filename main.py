@@ -29,7 +29,7 @@ settline = 0
 complete = 0
 var = {"-": "-"}	
 labels = {"-": "-"}
-toolbarsize=40
+toolbarsize=26
 # ----------------------- Tkinter Widget Initialization ---------------------- #
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 inputTextField.pack(side=tkinter.LEFT)
@@ -44,11 +44,13 @@ outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_hei
 timer=tkinter.Label(text="0:00:00.00",fg="#ffffff",bg="#242424")
 timer.place(anchor=tkinter.N,relx=.5,rely=.1+(toolbarsize/app.winfo_height()))
 
-toolbar=tkinter.Frame(app,bg="#242424",height=toolbarsize)
-toolbar.pack(side=tkinter.TOP,fill=tkinter.X)
-
-fileButton=tkinter.Button(toolbar,text="File")
-fileButton.pack(side=tkinter.LEFT)
+def fileButtonFunction():
+	global openFile,openAFile
+	openFile=tkinter.filedialog.askopenfilename()
+	openAFile=True
+importButton=tkinter.Button(app,text="Import",width=10,height=1,compound="c",bg="#303030",fg="#ffffff",activebackground="#505050",activeforeground="#ffffff",command=fileButtonFunction)
+importButton.pack(side=tkinter.LEFT)
+importButton.place(anchor=tkinter.NW)
 
 def runButtonFunction():
 	global running,nextRun,setTime,reset
@@ -81,17 +83,7 @@ def error(errormsg):
 			print(f"\nERROR: {errormsg} on line {userline}")
 	except:print(f"\nERROR: {errormsg} on line {userline}")
 def exec_next(lines):
-	global line
-	global code
-	global complete
-	global userline
-	global activeloop
-	global comment
-	global rid
-	global remember
-	global whotoinsult
-	global out
-	global nextRun
+	global line,code,complete,userline,activeloop,comment,rid,remember,whotoinsult,out,nextRun
 	activeloop = 0
 	comment = 0
 	userline = line + 1
@@ -133,7 +125,7 @@ def exec_next(lines):
 		kwargs=str(args[1]).replace("\n","")
 		vartochange = args[0].replace("\n", "")
 		if kwargs == "num":
-			if args[2] == "set":var[vartochange] = float(repVar(args[3]))
+			if   args[2] == "set":var[vartochange] = float(repVar(args[3]))
 			elif args[2] == "add":var[vartochange] = float(repVar(args[3]))+float(repVar(args[4]))
 			elif args[2] == "sub":var[vartochange] = float(repVar(args[3]))-float(repVar(args[4]))
 			elif args[2] == "mlt":var[vartochange] = float(repVar(args[3]))*float(repVar(args[4]))
@@ -235,6 +227,8 @@ def Loop():
 	global out
 	global startTime
 	global toolbarsize
+	global openFile
+	global openAFile
 	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SW,relx=0,rely=1)
 	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SE,relx=1,rely=1)
 	addToProgram=open("program.vpr","w")
@@ -252,6 +246,10 @@ def Loop():
 		complete=0		
 		startTime=time.time()
 		reset=False
+	if openAFile:
+		inputTextField.delete(1.0, "end-1c")
+		inputTextField.insert("end-1c", open(openFile,"r").read())
+		openAFile=False
 	if running:	
 		timer.configure(text=f"{datetime.timedelta(seconds=math.floor(time.time()-startTime))}.{round(((time.time()-startTime)%1)*100)}")
 		try:
@@ -270,6 +268,8 @@ def Loop():
 	app.after(10,Loop)
 running=False
 nextRun=0
+openFile=""
+openAFile=False
 startTime=time.time()
 setTime=0
 reset=True
