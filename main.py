@@ -99,7 +99,6 @@ def exec_next(lines):
 		for word in args:
 			toText+=repVar(str(word))
 			toText+=" "
-		 
 		toText = removeEnd("\n ",toText)
 		print(toText)
 		out+=toText
@@ -107,7 +106,6 @@ def exec_next(lines):
 	elif cmd == "slp":
 		timeToSleep=repVar(args[0])
 		nextRun=int(timeToSleep)
-		#print(nextRun)
 		rid += int(timeToSleep)
 	elif cmd == "jmp":
 		remember = line
