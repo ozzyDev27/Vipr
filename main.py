@@ -32,18 +32,20 @@ labels = {"-": "-"}
 
 # ----------------------- Tkinter Widget Initialization ---------------------- #
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
-inputTextField.pack(side=tkinter.LEFT,expand=True,fill=tkinter.BOTH)
+inputTextField.pack(side=tkinter.LEFT)
 inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.W,relx=0,rely=0.5)
 getProgram=open("program.vpr", "r")
 inputTextField.insert("end-1c", ''.join(getProgram.readlines()))
 
 outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
-outputTextField.pack(side=tkinter.RIGHT,expand=True,fill=tkinter.BOTH)
+outputTextField.pack(side=tkinter.RIGHT)
 outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height(),anchor=tkinter.E,relx=1,rely=0.5)
 
 timer=tkinter.Label(text="0:00:00+00",fg="#ffffff",bg="#242424")
 timer.place(anchor=tkinter.N,relx=.5,rely=.1)
 
+#toolbar=tkinter.Frame(app,bg="#242424",height=40)
+#toolbar.pack(side=tkinter.TOP,fill=tkinter.X)
 def runButtonFunction():
 	global running,nextRun,setTime,reset
 	running=not running
