@@ -29,7 +29,7 @@ settline = 0
 complete = 0
 var = {"-": "-"}	
 labels = {"-": "-"}
-toolbarsize=26
+toolbarsize=0
 # ----------------------- Tkinter Widget Initialization ---------------------- #
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 inputTextField.pack(side=tkinter.LEFT)
@@ -48,22 +48,20 @@ def importButtonFunction():
 	global openFile,openAFile
 	openFile=tkinter.filedialog.askopenfilename()
 	openAFile=True
-importButton=tkinter.Button(app,text="Import",width=10,height=1,compound="c",bg="#303030",fg="#ffffff",activebackground="#505050",activeforeground="#ffffff",command=importButtonFunction)
+importButton=customtkinter.CTkButton(master=app,text="Import",command=importButtonFunction)
 importButton.pack(side=tkinter.LEFT)
-importButton.place(anchor=tkinter.NW)
-
+importButton.place(anchor=tkinter.N,relx=.5,rely=.3)
 
 
 def exportButtonFunction():
 	f = tkinter.filedialog.asksaveasfile(mode='w', initialfile = 'program.vpr',defaultextension=".vpr",filetypes=[("All Files","*.*"),("Vipr Files","*.vpr")])
-	if f is None: 
-		return
+	if f is None:return
 	f.write(inputTextField.get(1.0,"end-1c"))
 	f.close()
 	
-exportButton=tkinter.Button(app,text="Export",width=10,height=1,compound="c",bg="#303030",fg="#ffffff",activebackground="#505050",activeforeground="#ffffff",command=exportButtonFunction)
+exportButton=customtkinter.CTkButton(master=app,text="Export",command=exportButtonFunction)
 exportButton.pack(side=tkinter.LEFT)
-exportButton.place(anchor=tkinter.NW,x=80)
+exportButton.place(anchor=tkinter.N,relx=.5,rely=.4)
 
 def runButtonFunction():
 	global running,nextRun,setTime,reset
