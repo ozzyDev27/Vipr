@@ -70,10 +70,7 @@ def error(errormsg):
 		else:
 			print(f"\nERROR: {errormsg} on line {userline}")
 	except:print(f"\nERROR: {errormsg} on line {userline}")
-def jummp(rurn):
-	line = int(rurn) - 2
 def exec_next(lines):
-	global jummp
 	global line
 	global code
 	global loop
