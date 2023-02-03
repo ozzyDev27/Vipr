@@ -7,9 +7,8 @@ import os
 import tkinter
 import customtkinter
 import datetime
-#import PyYaml
-#^^^ MAKE WORK!!! (please)
-#ORR make a "settings tab" on the tkinter window
+import yaml
+
 run = open("program.vpr", "r")
 app=customtkinter.CTk()
 app.geometry("750x450")
@@ -41,7 +40,7 @@ outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT)
 outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.E,relx=1,rely=0.5)
 
-timer=tkinter.Label(text="0:00:00.00",fg="#ffffff",bg="#242424")
+timer=tkinter.Label(text="0:00:00.00",fg="#ffffff",bg="#242424",font=("",16))
 timer.place(anchor=tkinter.N,relx=.5,rely=.1+(toolbarsize/app.winfo_height()))
 
 def importButtonFunction():
@@ -55,7 +54,7 @@ importButton.place(anchor=tkinter.N,relx=.5,rely=.3)
 
 def exportButtonFunction():
 	f = tkinter.filedialog.asksaveasfile(mode='w', initialfile = 'program.vpr',defaultextension=".vpr",filetypes=[("All Files","*.*"),("Vipr Files","*.vpr")])
-	if f is None:return
+	if f in [None,'']:return
 	f.write(inputTextField.get(1.0,"end-1c"))
 	f.close()
 	
@@ -69,7 +68,7 @@ def runButtonFunction():
 	if running:reset=True
 	nextRun=0
 	setTime=0
-runButton=customtkinter.CTkButton(master=app,command=runButtonFunction)
+runButton=customtkinter.CTkButton(master=app,command=runButtonFunction,fg_color=("#1a9132","#1a9132"),hover_color=("#126b24","#126b24"))
 runButton.place(anchor=tkinter.N,relx=0.5,rely=(toolbarsize/app.winfo_height()))
 # Replaces all variables with their value
 def repVar(check):
@@ -205,7 +204,7 @@ def exec_next(lines):
 		# replace stuff
 		lsttochange=str(args[0].replace("\n",""))
 		keyword=args[1].replace("\n","")
-		if keyword == "add":
+		if keyword == "new":
 			var[lsttochange]=[]
 		elif keyword == "app":
 			append=''
@@ -244,7 +243,8 @@ def Loop():
 	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SE,relx=1,rely=1)
 	addToProgram=open("program.vpr","w")
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
-	runButton.configure(text=str(running))
+	runButton.configure(text=str("Running" if running else "Paused"))
+	currentTime=time.time()-startTime
 	if outputTextField.get(1.0,"end-1c")!=out:
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
