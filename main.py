@@ -15,22 +15,21 @@ app.geometry("750x450")
 app.minsize(375,225)
 app.title("Vipr")
 line = 0
-rid = float(0)
-settline = 0
 complete = 0
-var = {"-": "-"}	
-labels = {"-": "-"}
 toolbarsize=0
 # ----------------------- Tkinter Widget Initialization ---------------------- #
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 inputTextField.pack(side=tkinter.LEFT)
 inputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.W,relx=0,rely=0.5)
-getProgram=open("program.vpr", "r")
-inputTextField.insert("end-1c", ''.join(getProgram.readlines()))
+inputTextField.insert("end-1c", ''.join(run.readlines()))
 
+#outputScrollbar=tkinter.Scrollbar(app,orient="vertical")
+#outputScrollbar.pack(side=tkinter.RIGHT,fill='y')
 outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT)
-outputTextField.place(width=round((app.winfo_width()-50)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.E,relx=1,rely=0.5)
+
+
+
 
 timer=tkinter.Label(text="0:00:00.00",fg="#ffffff",bg="#242424",font=("",16))
 timer.place(anchor=tkinter.N,relx=.5,rely=.1+(toolbarsize/app.winfo_height()))
@@ -82,7 +81,7 @@ def error(errormsg):
 		print(f"\nERROR: {errormsg} on line {userline}")
 	except:print(f"\nERROR: {errormsg} on line {userline}")
 def exec_next(lines):
-	global line,code,complete,userline,activeloop,comment,rid,remember,out,nextRun
+	global line,code,complete,userline,activeloop,comment,remember,out,nextRun
 	activeloop = 0
 	comment = 0
 	userline = line + 1
@@ -106,7 +105,6 @@ def exec_next(lines):
 	elif cmd == "slp":
 		timeToSleep=repVar(args[0])
 		nextRun=nextFrame(timeToSleep)
-		rid += int(timeToSleep)
 	elif cmd == "jmp":
 		remember = line
 		line = int(repVar(args[0])) - 2
@@ -215,12 +213,12 @@ padding=150
 def nextFrame(next:int):
 	return (int(round(time.time()*100))+int(next))/100
 def Loop():
-	global complete,nextRun,setTime,running,reset,line,out,startTime,toolbarsize,openFile,openAFile
+	global complete,nextRun,setTime,running,reset,line,out,startTime,toolbarsize,openFile,openAFile,var,labels
 	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SW,relx=0,rely=1)
-	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SE,relx=1,rely=1)
+	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.E,relx=1,rely=0.5)
 	addToProgram=open("program.vpr","w")
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
-	runButton.configure(text=str("Running" if running else "Paused"))
+	runButton.configure(text=str("Pause" if running else "Run"))
 	if outputTextField.get(1.0,"end-1c")!=out:
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
@@ -233,6 +231,8 @@ def Loop():
 		complete=0		
 		startTime=time.time()
 		reset=False
+		var = {"-": "-"}	
+		labels = {"-": "-"}
 	if openAFile:
 		inputTextField.delete(1.0, "end-1c")
 		with open(openFile,"r") as f:
@@ -250,9 +250,8 @@ def Loop():
 				setTime+=1
 		except IndexError:
 			setTime=0
-			nextRun=0
-	else:
-		complete=0
+			nextRun=0	
+		outputTextField.yview_moveto(1.0)
 	app.after(10,Loop)
 running=False
 nextRun=0
