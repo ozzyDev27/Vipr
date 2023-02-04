@@ -210,7 +210,6 @@ def exec_next(lines):
 			append=removeEnd("\n ", append)
 			var[lsttochange].insert(int(args[2])-1,repVar(append))
 	line += 1
-totallines = run.readlines()
 complete = 0
 padding=150
 def nextFrame(next:int):
@@ -245,7 +244,7 @@ def Loop():
 		try:
 			if time.time()>=nextRun:
 				nextRun=nextFrame(1)
-				exec_next(totallines)
+				exec_next(inputTextField.get(1.0,"end-1c").split("\n"))
 				complete += 1
 			else:
 				setTime+=1

@@ -1,7 +1,5 @@
-var timer num set 0
-var timer num add ~timer~ 1
-txt ~timer~
-
-
-slp 100
-jmp 2
+txt Hello, world!
+slp 200
+txt test!!!
+slp 300
+txt hi
