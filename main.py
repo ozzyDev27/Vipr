@@ -14,12 +14,8 @@ app=customtkinter.CTk()
 app.geometry("750x450")
 app.minsize(375,225)
 app.title("Vipr")
-line = 0
 rid = float(0)
-settline = 0
 complete = 0
-var = {"-": "-"}	
-labels = {"-": "-"}
 toolbarsize=0
 # ----------------------- Tkinter Widget Initialization ---------------------- #
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
@@ -105,7 +101,7 @@ def exec_next(lines):
 		out+="\n"
 	elif cmd == "slp":
 		timeToSleep=repVar(args[0])
-		nextRun=nextFrame(timeToSleep)
+		nextRun=int(timeToSleep)
 		rid += int(timeToSleep)
 	elif cmd == "jmp":
 		remember = line
@@ -209,19 +205,20 @@ def exec_next(lines):
 				append+=' '
 			append=removeEnd("\n ", append)
 			var[lsttochange].insert(int(args[2])-1,repVar(append))
+	
 	line += 1
 totallines = run.readlines()
 complete = 0
 padding=150
-def nextFrame(next:int):
-	return (int(round(time.time()*100))+int(next))/100
+
 def Loop():
-	global complete,nextRun,setTime,running,reset,line,out,startTime,toolbarsize,openFile,openAFile
+	global complete,nextRun,setTime,running,reset,line,out,startTime,toolbarsize,openFile,openAFile,var,labels
 	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SW,relx=0,rely=1)
 	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SE,relx=1,rely=1)
 	addToProgram=open("program.vpr","w")
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
 	runButton.configure(text=str("Running" if running else "Paused"))
+	#!print(outputTextField.yview())
 	if outputTextField.get(1.0,"end-1c")!=out:
 		outputTextField.delete(1.0, "end-1c")
 		outputTextField.insert("end-1c", out)
@@ -234,17 +231,21 @@ def Loop():
 		complete=0		
 		startTime=time.time()
 		reset=False
+		var = {"-": "-"}	
+		labels = {"-": "-"}		
+		line = 0
 	if openAFile:
 		inputTextField.delete(1.0, "end-1c")
 		with open(openFile,"r") as f:
-			fileText=f.read()
+			fileText=openFile.read()
 		inputTextField.insert("end-1c", fileText)
 		openAFile=False
 	if running:	
 		timer.configure(text=f"{datetime.timedelta(seconds=math.floor(time.time()-startTime))}.{round(((time.time()-startTime)%1)*100)}")
 		try:
-			if time.time()>=nextRun:
-				nextRun=nextFrame(1)
+			if setTime>=nextRun:
+				nextRun=0
+				setTime=0
 				exec_next(totallines)
 				complete += 1
 			else:
