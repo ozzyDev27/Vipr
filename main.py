@@ -213,9 +213,9 @@ padding=150
 def nextFrame(next:int):
 	return (int(round(time.time()*100))+int(next))/100
 def Loop():
-	global complete,nextRun,setTime,running,reset,line,out,startTime,toolbarsize,openFile,openAFile,var,labels
-	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.SW,relx=0,rely=1)
-	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-toolbarsize,anchor=tkinter.E,relx=1,rely=0.5)
+	global complete,nextRun,setTime,running,reset,line,out,startTime,openFile,openAFile,var,labels,inputMode
+	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height(),anchor=tkinter.SW,relx=0,rely=1)
+	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-50,anchor=tkinter.NE,relx=1,rely=0)
 	addToProgram=open("program.vpr","w")
 	addToProgram.write(inputTextField.get(1.0,"end-1c"))
 	runButton.configure(text=str("Pause" if running else "Run"))
@@ -259,6 +259,7 @@ openFile=""
 openAFile=False
 startTime=time.time()
 setTime=0
+inputMode=False
 reset=True
 app.after(1,Loop)
 app.mainloop()
