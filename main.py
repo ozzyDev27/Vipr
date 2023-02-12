@@ -207,6 +207,8 @@ def exec_next(lines):
 				append+=' '
 			append=removeEnd("\n ", append)
 			var[lsttochange].insert(int(args[2])-1,repVar(append))
+		elif keyword == "get":
+			var[args[2]]=var[args[3]][int(args[4].replace("\n",""))]
 	line += 1
 complete = 0
 padding=150
