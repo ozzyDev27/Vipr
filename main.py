@@ -183,32 +183,32 @@ def exec_next(lines):
 		for i in range(0, int(args[0])):
 			print("")
 			out+="\n"
-	elif cmd == "lst":
-		# remove stuff
-		# get length
-		# check if inside
-		# replace stuff
-		lsttochange=str(args[0].replace("\n",""))
-		keyword=args[1].replace("\n","")
-		if keyword == "new":
-			var[lsttochange]=[]
-		elif keyword == "app":
-			append=''
-			for i in args[2:]:
-				append+=i
-				append+=' '
-			append=append=removeEnd("\n ", append)
-			var[lsttochange].append(repVar(append))
-		elif keyword == "ins":
-			#lst name ins 1 muahahahhah
-			append=''
-			for i in args[3:]:
-				append+=i
-				append+=' '
-			append=removeEnd("\n ", append)
-			var[lsttochange].insert(int(args[2])-1,repVar(append))
-		elif keyword == "get":
-			var[args[2]]=var[args[3]][int(args[4].replace("\n",""))]
+	#!elif cmd == "lst":
+	#!	# remove stuff
+	#!	# get length
+	#!	# check if inside
+	#!	# replace stuff
+	#!	lsttochange=str(args[0].replace("\n",""))
+	#!	keyword=args[1].replace("\n","")
+	#!	if keyword == "new":
+	#!		var[lsttochange]=[]
+	#!	elif keyword == "app":
+	#!		append=''
+	#!		for i in args[2:]:
+	#!			append+=i
+	#!			append+=' '
+	#!		append=append=removeEnd("\n ", append)
+	#!		var[lsttochange].append(repVar(append))
+	#!	elif keyword == "ins":
+	#!		#lst name ins 1 muahahahhah
+	#!		append=''
+	#!		for i in args[3:]:
+	#!			append+=i
+	#!			append+=' '
+	#!		append=removeEnd("\n ", append)
+	#!		var[lsttochange].insert(int(args[2])-1,repVar(append))
+	#!	elif keyword == "get":
+	#!		var[args[2]]=var[args[3]][int(args[4].replace("\n",""))]
 	line += 1
 complete = 0
 padding=150
