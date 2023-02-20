@@ -15,7 +15,6 @@ app.geometry("750x450")
 app.minsize(375,225)
 app.title("Vipr")
 line = 0
-complete = 0
 toolbarsize=0
 # ----------------------- Tkinter Widget Initialization ---------------------- #
 inputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
@@ -81,7 +80,7 @@ def error(errormsg):
 		print(f"\nERROR: {errormsg} on line {userline}")
 	except:print(f"\nERROR: {errormsg} on line {userline}")
 def exec_next(lines):
-	global line,code,complete,userline,activeloop,comment,remember,out,nextRun
+	global line,code,userline,activeloop,comment,remember,out,nextRun
 	activeloop = 0
 	comment = 0
 	userline = line + 1
@@ -210,12 +209,11 @@ def exec_next(lines):
 	#!	elif keyword == "get":
 	#!		var[args[2]]=var[args[3]][int(args[4].replace("\n",""))]
 	line += 1
-complete = 0
 padding=150
 def nextFrame(next:int):
 	return (int(round(time.time()*100))+int(next))/100
 def Loop():
-	global complete,nextRun,setTime,running,reset,line,out,startTime,openFile,openAFile,var,labels,inputMode
+	global nextRun,setTime,running,reset,line,out,startTime,openFile,openAFile,var,labels,inputMode
 	inputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height(),anchor=tkinter.SW,relx=0,rely=1)
 	outputTextField.place(width=round((app.winfo_width()-padding)/2),height=app.winfo_height()-50,anchor=tkinter.NE,relx=1,rely=0)
 	addToProgram=open("program.vpr","w")
@@ -230,7 +228,6 @@ def Loop():
 		line = 0
 		nextRun=0
 		setTime=0
-		complete=0		
 		startTime=time.time()
 		reset=False
 		var = {"-": "-"}	
@@ -247,7 +244,6 @@ def Loop():
 			if time.time()>=nextRun:
 				nextRun=nextFrame(1)
 				exec_next(inputTextField.get(1.0,"end-1c").split("\n"))
-				complete += 1
 			else:
 				setTime+=1
 		except IndexError:
