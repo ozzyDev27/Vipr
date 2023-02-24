@@ -27,9 +27,6 @@ inputTextField.insert("end-1c", ''.join(run.readlines()))
 outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT)
 
-
-
-
 timer=tkinter.Label(text="0:00:00.00",fg="#ffffff",bg="#242424",font=("",16))
 timer.place(anchor=tkinter.N,relx=.5,rely=.1+(toolbarsize/app.winfo_height()))
 
@@ -61,12 +58,15 @@ def runButtonFunction():
 	setTime=0
 runButton=customtkinter.CTkButton(master=app,command=runButtonFunction,fg_color=("#1a9132","#1a9132"),hover_color=("#126b24","#126b24"))
 runButton.place(anchor=tkinter.N,relx=0.5,rely=(toolbarsize/app.winfo_height()))
-# Replaces all variables with their value
+
+
+# --------------------------------- Functions -------------------------------- #
+#? Replaces all variables with their value
 def repVar(check):
 	check = re.sub(r'(?<=~)\w+(?=~)', lambda x: var[x.group(0)], check).replace("~", "")
 	return check
 		
-#remove suffix fix
+#? remove suffix fix
 def removeEnd(toRemove, stringGet):
 	if str(stringGet).endswith(str(toRemove)):
 		lengthRemove = int(len(toRemove))*-1
@@ -74,11 +74,13 @@ def removeEnd(toRemove, stringGet):
 	else:
 		return stringGet
 
-out=""
+#? Error message
 def error(errormsg):
 	try:
 		print(f"\nERROR: {errormsg} on line {userline}")
 	except:print(f"\nERROR: {errormsg} on line {userline}")
+
+# ------------------------------- All commands ------------------------------- #
 def exec_next(lines):
 	global line,code,userline,activeloop,comment,remember,out,nextRun
 	activeloop = 0
@@ -251,6 +253,8 @@ def Loop():
 			nextRun=0	
 		outputTextField.yview_moveto(1.0)
 	app.after(10,Loop)
+
+# -------------------------- Variable Initialization ------------------------- #
 running=False
 nextRun=0
 openFile=""
@@ -259,6 +263,9 @@ startTime=time.time()
 setTime=0
 inputMode=False
 reset=True
+out=""
+
+# --------------------------------- Run Vipr --------------------------------- #
 app.after(1,Loop)
 app.mainloop()
 run.close()
