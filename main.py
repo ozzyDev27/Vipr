@@ -116,9 +116,7 @@ def exec_next(lines):
 			remember = line
 			line = labels[str(args[1]).replace("\n", "")]
 	elif cmd == "end":
-		raise IndexError
-	#//elif cmd == "dbg (NO)":
-	#//	if args[0] == "1":print(var)
+		raise IndexError #?pretends to be the end of the program
 	elif cmd == "var":
 		kwargs=str(args[1]).replace("\n","")
 		vartochange = args[0].replace("\n", "")
