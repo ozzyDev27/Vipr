@@ -7,7 +7,6 @@ import os
 import tkinter
 import customtkinter
 import datetime
-#!import yaml
 
 run = open("program.vpr", "r")
 app=customtkinter.CTk()
