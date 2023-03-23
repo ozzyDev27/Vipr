@@ -23,6 +23,7 @@ inputTextField.insert("end-1c", ''.join(run.readlines()))
 
 #outputScrollbar=tkinter.Scrollbar(app,orient="vertical")
 #outputScrollbar.pack(side=tkinter.RIGHT,fill='y')
+#outputScrollbar.place()
 outputTextField=tkinter.Text(app,bg="#242424",fg="#ffffff",wrap=tkinter.NONE)
 outputTextField.pack(side=tkinter.RIGHT)
 
