@@ -8,6 +8,7 @@ import tkinter
 import customtkinter
 import datetime
 
+
 run = open("program.vpr", "r")
 app=customtkinter.CTk()
 app.geometry("750x450")
