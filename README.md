@@ -1,4 +1,4 @@
-# Hello!
+# Hello There!
 Vipr is a high-level language pretending to be a low-level one, making it not very efficient.  
 However, it is fun to use and to learn the basics of programming with :D  
 It is my first "large" project, and helped me learn a lot!
