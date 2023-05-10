@@ -1,3 +1,4 @@
+# ----------------------- Setup ---------------------- #
 import time
 from termcolor import cprint
 from random import randint
@@ -7,7 +8,6 @@ import os
 import tkinter
 import customtkinter
 import datetime
-
 
 run = open("program.vpr", "r")
 app=customtkinter.CTk()
