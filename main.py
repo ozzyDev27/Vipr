@@ -268,5 +268,4 @@ out=""
 app.after(1,Loop)
 app.mainloop()
 run.close()
-print("")
 out+="\n"
