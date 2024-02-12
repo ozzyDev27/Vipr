@@ -72,8 +72,7 @@ def removeEnd(toRemove, stringGet):
 	if str(stringGet).endswith(str(toRemove)):
 		lengthRemove = int(len(toRemove))*-1
 		return stringGet[:lengthRemove]
-	else:
-		return stringGet
+	else:return stringGet
 
 #? Error message
 def error(errormsg):
@@ -153,7 +152,7 @@ def exec_next(lines):
 					out+=word.replace("\n", "")
 					out+="\n"
 				else:
-					print(word, end=" ")
+					print(word, end=" ")	
 					out+=word
 					out+="\n"
 			print(">", end="")
